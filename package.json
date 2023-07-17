@@ -1,0 +1,12 @@
+{
+  "name": "serverless-jamstack",
+  "version": "1.0.0",
+  "description": "This repo contains sample code for a serverless Jamstack tutorial that teaches users how to intergrate serverless functions into their Jamstack site. The tutorial will be published soon at docs.digitalocean.com.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
