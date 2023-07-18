@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
 async function main(args) {
     const uri = process.env['DATABASE_URL'];
@@ -7,7 +7,16 @@ async function main(args) {
     let newEmail = args.email;
     try {
         await client.connect();
-        await client.db("do-coffee").collection("email-list").insertOne({subscriber: newEmail});
+        
+        // Check if the email already exists in the database
+        const existingEmail = await client.db("do-coffee").collection("email-list").findOne({ subscriber: newEmail });
+        if (existingEmail) {
+            console.log(`${newEmail} already exists in the database. Skipping insertion.`);
+            return { ok: true };
+        }
+
+        // If the email doesn't exist, insert it into the database
+        await client.db("do-coffee").collection("email-list").insertOne({ subscriber: newEmail });
         console.log(`added ${newEmail} to database.`);
         return { ok: true };
     } catch (e) {
