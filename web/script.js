@@ -69,21 +69,29 @@ const cartHandler = function() {
   }
 }
 
-// start of email subscription handler
-let subscribeButton = document.getElementById("subscribe");
-const subscribeHandler = async function() {
-  let email = document.getElementById("email").value
-  let emailUrl = "https://faas-fra1-afec6ce7.doserverless.co/api/v1/web/fn-eb69459a-3a69-4613-acc6-efe476189b9f/cloud/postEmail" + "?email=" + email;
-  await axios.post(emailUrl);
-  localStorage.setItem("subscribe", email);
-  document.getElementById("email").value = '';
+const subscribeButton = document.getElementById("subscribe");
 
-  let emailForm = document.getElementById("email-form");
-  const message = "You have been successfully added to our email list."
-  const successMessage = document.createTextNode(message);
-  emailForm.appendChild(successMessage);
-}
+const subscribeHandler = async function() {
+  const email = document.getElementById("email").value;
+  const emailUrl = "https://faas-fra1-afec6ce7.doserverless.co/api/v1/web/fn-eb69459a-3a69-4613-acc6-efe476189b9f/cloud/postEmail" + "?email=" + email;
+
+  try {
+    const response = await axios.post(emailUrl);
+    const doSth = response.data.ok; // If response.ok is true, doSth will be true
+    localStorage.setItem("subscribe", email);
+    document.getElementById("email").value = '';
+    let emailForm = document.getElementById("email-form");
+    const message = doSth ? "You are already subscribed." : "You have been successfully added to our email list.";
+    const successMessage = document.createTextNode(message);
+    emailForm.appendChild(successMessage);
+  } catch (error) {
+    console.error(error);
+    // Handle the error here if necessary
+  }
+};
+
 subscribeButton.addEventListener('click', subscribeHandler);
+
 
 // start of shopping cart modal handler 
 
