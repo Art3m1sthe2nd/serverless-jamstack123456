@@ -77,7 +77,7 @@ const subscribeHandler = async function() {
 
   try {
     const response = await axios.post(emailUrl);
-    const doSth = response.data.ok; // If response.ok is true, doSth will be true
+    const doSth = !response.data.ok; // If response.ok is true, doSth will be true
     localStorage.setItem("subscribe", email);
     document.getElementById("email").value = '';
     let emailForm = document.getElementById("email-form");
