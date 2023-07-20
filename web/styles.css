@@ -39,6 +39,17 @@ body {
     margin-left: 20px;
 }
 
+.form-container {
+    width: 800px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the forms horizontally */
+  }
+  
+  .contact-form {
+    width: 100%; /* Optional: To make the inputs stretch to the container width */
+    margin-bottom: 20px; /* Optional: Add some spacing between the forms */
+  }
+  
+
 button {
     width: 100px;
     background-color: brown;

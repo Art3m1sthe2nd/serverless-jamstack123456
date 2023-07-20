@@ -77,13 +77,16 @@ const subscribeHandler = async function() {
 
   try {
     const response = await axios.post(emailUrl);
-    const doSth = !response.data.ok; // If response.ok is true, doSth will be true
+    const doSth = !response.data.ok; // If response.ok is true, doSth will be false
     localStorage.setItem("subscribe", email);
     document.getElementById("email").value = '';
     let emailForm = document.getElementById("email-form");
     const message = doSth ? "You are already subscribed." : "You have been successfully added to our email list.";
     const successMessage = document.createTextNode(message);
     emailForm.appendChild(successMessage);
+    setTimeout(() => {
+      emailForm.removeChild(successMessage);
+    }, 5000);
   } catch (error) {
     console.error(error);
     // Handle the error here if necessary
