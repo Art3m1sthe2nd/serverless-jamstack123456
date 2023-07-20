@@ -69,11 +69,45 @@ const cartHandler = function() {
   }
 }
 
-const subscribeButton = document.getElementById("subscribe");
 
+let subscribeButton = document.getElementById("subscribe");
 const subscribeHandler = async function() {
   const email = document.getElementById("email").value;
   const emailUrl = "https://faas-fra1-afec6ce7.doserverless.co/api/v1/web/fn-eb69459a-3a69-4613-acc6-efe476189b9f/cloud/postEmail" + "?email=" + email;
+
+  try {
+    const response = await axios.post(emailUrl);
+    const doSth = !response.data.ok; // If response.ok is true, doSth will be false
+    localStorage.setItem("subscribe", email);
+    document.getElementById("email").value = '';
+    let emailForm = document.getElementById("email-form");
+    const message = doSth ? "You are already subscribed." : "You have been successfully added to our email list.";
+    const successMessage = document.createTextNode(message);
+    emailForm.appendChild(successMessage);
+    setTimeout(() => {
+      emailForm.removeChild(successMessage);
+    }, 5000);
+  } catch (error) {
+    console.error(error);
+    // Handle the error here if necessary
+  }
+};
+
+
+
+let contactButton = document.getElementById("send");
+
+const contactHandler = async function() {
+  const newName = document.getElementById("name").value;
+  const newContactEmail = document.getElementById("contact-email").value;
+  const newAbteilung = document.getElementById("Abteilung").value;
+  const newAnliegen = document.getElementById("anliegen").value;
+
+  const emailUrl = "https://faas-fra1-afec6ce7.doserverless.co/api/v1/web/fn-eb69459a-3a69-4613-acc6-efe476189b9f/checkEmail" +
+    "?name=" + newName +
+    "&contactEmail=" + newContactEmail +
+    "&abteilung=" + newAbteilung +
+    "&anliegen=" + newAnliegen;
 
   try {
     const response = await axios.post(emailUrl);

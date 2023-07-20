@@ -15,7 +15,12 @@ async function main(args) {
         }
         
         // If the email doesn't exist, insert it into the database
-        await client.db("do-coffee").collection("email-list").insertOne({ subscriber: newEmail });
+        await client.db("do-coffee").collection("contact-forms").insertOne({
+            name: newName,
+            contactEmail: newContactEmail,
+            abteilung: newAbteilung,
+            anliegen: newAnliegen
+          });
         console.log(`Added ${newEmail} to the database.`);
         return { message: `Added ${newEmail} to the database.`, inserted: true };
     } catch (e) {
