@@ -78,19 +78,32 @@ const subscribeHandler = async function() {
 
   try {
     const response = await axios.post(emailUrl);
-    const inserted = response.data.inserted;
-    console.log(inserted);
-    console.log(response);
-    localStorage.setItem("subscribe", email);
-    document.getElementById("email").value = '';
-    let emailForm = document.getElementById("email-form");
-    const message = inserted ? "You have been successfully added to our email list." : "You are already subscribed.";
-    const successMessage = document.createTextNode(message);
-    console.log(inserted);
-    emailForm.appendChild(successMessage);
-    setTimeout(() => {
-      emailForm.removeChild(successMessage);
-    }, 5000);
+
+    if (response.status === 204) {
+      // Status 204 means the email is already in the database
+      console.log("Email is already subscribed:", email);
+      localStorage.setItem("subscribe", email);
+      document.getElementById("email").value = '';
+      let emailForm = document.getElementById("email-form");
+      const message = "You are already subscribed.";
+      const successMessage = document.createTextNode(message);
+      emailForm.appendChild(successMessage);
+      setTimeout(() => {
+        emailForm.removeChild(successMessage);
+      }, 5000);
+    } else {
+      // Status 200 means the email was successfully added to the database
+      console.log("Email added to the database:", email);
+      localStorage.setItem("subscribe", email);
+      document.getElementById("email").value = '';
+      let emailForm = document.getElementById("email-form");
+      const message = "You have been successfully added to our email list.";
+      const successMessage = document.createTextNode(message);
+      emailForm.appendChild(successMessage);
+      setTimeout(() => {
+        emailForm.removeChild(successMessage);
+      }, 5000);
+    }
   } catch (error) {
     console.error(error);
     // Handle the error here if necessary
@@ -98,8 +111,6 @@ const subscribeHandler = async function() {
 };
 
 subscribeButton.addEventListener('click', subscribeHandler);
-
-
 
 
 let contactButton = document.getElementById("send");
