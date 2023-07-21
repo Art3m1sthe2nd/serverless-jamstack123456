@@ -4,22 +4,22 @@
     "namespace": "fn-eb69459a-3a69-4613-acc6-efe476189b9f",
     "packageVersions": {
       "cloud": {
-        "version": "0.0.19",
+        "version": "0.0.32",
         "digest": "4af75fc2349d1d4af60fdd6750804953e4e99b84597a3849ebd2eb38d705eed5"
       }
     },
     "actionVersions": {
       "cloud/checkEmail": {
-        "version": "0.0.3",
-        "digest": "36c5b196d922c0ad201d3a793cd9b2980e5dfea58eb9d08011995eebeaf9d374"
+        "version": "0.0.16",
+        "digest": "eba1c2c62b06cc2024b2ff9c43badd87f6bbce4ab63d7367ff8b67682938389b"
       },
       "cloud/getCoffee": {
-        "version": "0.0.19",
-        "digest": "10bb8fa1d6d34562aa4a622ac90041433c8157933976f6e361478e7241c189cb"
+        "version": "0.0.32",
+        "digest": "e5ea6e90b9ddefeccd3de5fc05e2902710470063c96235b90f69173a6a8a303f"
       },
       "cloud/postEmail": {
-        "version": "0.0.19",
-        "digest": "657b9127955f552eb9df350c39821262d608bf2c9edbc37f7ef02e6f3ecbc289"
+        "version": "0.0.32",
+        "digest": "9ad44ce41cde41f2309270fe50c75a2afe1f8922df5a2653ef99259dc3b85c5e"
       }
     },
     "webHashes": {}
