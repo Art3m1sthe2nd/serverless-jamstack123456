@@ -79,8 +79,8 @@ const subscribeHandler = async function() {
   try {
     const response = await axios.post(emailUrl);
 
-    if (response.status === 204) {
-      // Status 204 means the email is already in the database
+    if (response.status === 204 && response.data === "") {
+      // Status 204 and empty response data means the email is already in the database
       console.log("Email is already subscribed:", email);
       localStorage.setItem("subscribe", email);
       document.getElementById("email").value = '';
@@ -111,6 +111,7 @@ const subscribeHandler = async function() {
 };
 
 subscribeButton.addEventListener('click', subscribeHandler);
+
 
 
 let contactButton = document.getElementById("send");
