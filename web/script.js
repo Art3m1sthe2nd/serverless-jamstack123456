@@ -105,20 +105,20 @@ subscribeButton.addEventListener('click', subscribeHandler);
 let contactButton = document.getElementById("send");
 const contactHandler = async function() {
   const newName = document.getElementById("name").value;
-  const newContactEmail = document.getElementById("contact-email").value;
+  const newContactEmail = document.getElementById("contactEmail").value;
   const newAbteilung = document.getElementById("Abteilung").value;
   const newAnliegen = document.getElementById("anliegen").value;
 
   const contactUrl = "https://faas-fra1-afec6ce7.doserverless.co/api/v1/web/fn-eb69459a-3a69-4613-acc6-efe476189b9f/cloud/checkEmail" +
     "?name=" + newName +
     "&contactEmail=" + newContactEmail +
-    "&abteilung=" + newAbteilung +
+    "&Abteilung=" + newAbteilung +
     "&anliegen=" + newAnliegen;
   try {
     const response = await axios.post(contactUrl);
-    localStorage.setItem("subscribe", email);
+    localStorage.setItem("send", email);
     document.getElementById("name").value = '';
-    document.getElementById("contact-email").value = '';
+    document.getElementById("contactEmail").value = '';
     document.getElementById("Abteilung").value = '';
     document.getElementById("anliegen").value = '';
     let emailForm = document.getElementById("email-form");
@@ -134,7 +134,7 @@ const contactHandler = async function() {
   }
 };
 
-sendButton.addEventListener('click', subscribeHandler);
+contactButton.addEventListener('click', contactHandler);
 
 
 // start of shopping cart modal handler 

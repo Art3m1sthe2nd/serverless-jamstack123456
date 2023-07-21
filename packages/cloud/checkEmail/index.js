@@ -1,36 +1,32 @@
+const { Console } = require('console');
 const { MongoClient } = require('mongodb');
 
-async function main(args) {
+async function main(args, context) {
     const uri = process.env['DATABASE_URL'];
     let client = new MongoClient(uri);
-
-    const newName = args.name; // Access the 'name' property from args
-    const newContactEmail = args.email; // Access the 'email' property from args
-    const newAbteilung = args.Abteilung; // Access the 'Abteilung' property from args
-    const newAnliegen = args.anliegen; // Access the 'anliegen' property from args
-
+    
+    let newName = args.name;
+    let newContactEmail = args.contactEmail;
+    let newAbteilung = args.Abteilung;
+    let newAnliegen = args.anliegen;
     try {
+        let inDB;
         await client.connect();
-
-        // If the email doesn't exist, insert it into the database
-        await client.db("do-coffee").collection("contact-forms").insertOne({
-            name: newName,
-            contactEmail: newContactEmail,
-            abteilung: newAbteilung,
-            anliegen: newAnliegen
-        });
-        
-        console.log(`Added ${newName} to the database.`);
-        return { message: `Added ${newName} to the database.`, inserted: true };
-    } catch (e) {
+        await client.db("do-coffee").collection("contact-forms").insertOne({  Name: newName ,
+             Email: newContactEmail, 
+             Abteilung: newAbteilung, 
+             Anliegen: newAnliegen  });
+            console.log(`Added ${newEmail} to the database.`);
+        }
+     catch (e) {
         console.error(e);
-        return {
-            "body": { "error": "There was a problem adding the entry to the database." },
-            "statusCode": 400
-        };
+        context.status(500).fail({ "error": "There was a problem adding the email address to the database." });
     } finally {
-        await client.close();
+        console.log("inDB ", inDB);
+         client.close();
+         return { "body" : inDB }; 
     }
+
 }
 
 module.exports.main = main;
